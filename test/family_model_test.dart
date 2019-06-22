@@ -38,16 +38,14 @@ void main() {
     expect(dump('json', json), 'String json = [{"name":"John","age":25},{"name":"Tom","age":23}]');
 
     People boys2 = People(list.map((e) => Person.fromJson(e as Map<String, dynamic>)).toList());
-    expect(
-        dump('boys2', boys2), 'People boys2 = [John is 25 years old, Tom is 23 years old]');
+    expect(dump('boys2', boys2), 'People boys2 = [John is 25 years old, Tom is 23 years old]');
 
-    dynamic list2 = jsonDecode(json);
-    expect(
-        dump('list2', list2), 'List<dynamic> map = [{name: John, age: 25}, {name: Tom, age: 23}]');
+    List<dynamic> list2 = jsonDecode(json);
+    expect(dump('list2', list2),
+        'List<dynamic> list2 = [{name: John, age: 25}, {name: Tom, age: 23}]');
 
-    People boys3 = list2.map((e) => Person.fromJson(e as Map<String, dynamic>)).toList();
-    expect(
-        dump('boys3', boys3), 'People boys3 = [John is 25 years old, Tom is 23 years old]');
+    People boys3 = People(list2.map((e) => Person.fromJson(e as Map<String, dynamic>)).toList());
+    expect(dump('boys3', boys3), 'People boys3 = [John is 25 years old, Tom is 23 years old]');
   });
 
   test('Family', () {
@@ -55,7 +53,7 @@ void main() {
     expect(
         dump("fam", fam), 'Family fam = Sells Family: [John is 25 years old, Tom is 22 years old]');
 
-    Map<String, dynamic> map = fam.toJson();
+    Map<String, dynamic> map = jsonDecode(jsonEncode(fam));
     expect(dump('map', map),
         '_InternalLinkedHashMap<String, dynamic> map = {name: Sells, people: [{name: John, age: 25}, {name: Tom, age: 22}]}');
 

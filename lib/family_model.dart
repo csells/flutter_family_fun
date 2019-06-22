@@ -24,6 +24,7 @@ class Family extends ChangeNotifier {
   }
 
   // NOTE: uses List<Person> instead of People for json serializer
+  // TODO: experiment with People.toJson + People.fromJson
   List<Person> get people => _people;
   set people(List<Person> people) {
     _people.clear();
@@ -34,7 +35,7 @@ class Family extends ChangeNotifier {
   // NOTE: uses List<Person> instead of People for json serializer
   Family(String name, List<Person> people)
       : _name = name,
-        _people = People(people);
+        _people = People(people ?? []);
 
   factory Family.fromJson(Map<String, dynamic> json) => _$FamilyFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyToJson(this);
